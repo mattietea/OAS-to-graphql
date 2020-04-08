@@ -1,0 +1,1606 @@
+{
+   "swagger":"2.0",
+   "info":{
+      "x-termsOfService":"IBM provides this older version of the Language Translator v2 API in Swagger version 2.0 format (the \"Swagger API\"). You may use the Swagger API to provide capabilities or integrations that leverage the older version of the Language Translator v2 API. The Swagger API is provided as-is, and IBM does not make any commitments about the quality, reliability, availability, or ability of the Swagger API to meet your needs.",
+      "version":"2.0.0",
+      "title":"Language Translator",
+      "description":"\n\n---\n\nLanguage Translator v3 is [available](https://www.ibm.com/watson/developercloud/language-translator/api/v3/). See the [migration guide](https://console.bluemix.net/docs/services/language-translator/migrating.html).\n\n---\n\nIBM Watson&trade; Language Translator translates text from one language to another. The service offers multiple domain-specific models that you can customize based on your unique terminology and language. Use Language Translator to take news from across the globe and present it in your language, communicate with your customers in their own language, and more.",
+      "x-vcap-service-name":"language_translator",
+      "x-watson-host":"gateway.watsonplatform.net"
+   },
+   "securityDefinitions":{
+      "basicAuth":{
+         "type":"basic"
+      },
+      "IAM":{
+         "type":"apiKey",
+         "name":"Authorization",
+         "in":"header"
+      }
+   },
+   "security":[
+      {
+         "basicAuth":[
+
+         ]
+      },
+      {
+         "IAM":[
+
+         ]
+      }
+   ],
+   "tags":[
+      {
+         "name":"Translation"
+      },
+      {
+         "name":"Identification"
+      },
+      {
+         "name":"Models"
+      }
+   ],
+   "externalDocs":{
+      "description":"For more information about this service, see the docs.",
+      "url":"https://console.bluemix.net/docs/services/language-translator/"
+   },
+   "x-doc-properties":[
+      "hasCustomEndpoints"
+   ],
+   "basePath":"/language-translator/api",
+   "paths":{
+      "/v2/models":{
+         "get":{
+            "tags":[
+               "Models"
+            ],
+            "operationId":"listModels",
+            "summary":"List models",
+            "description":"Lists available translation models.",
+            "produces":[
+               "application/json"
+            ],
+            "parameters":[
+               {
+                  "name":"source",
+                  "in":"query",
+                  "description":"Specify a language code to filter results by source language.",
+                  "required":false,
+                  "type":"string"
+               },
+               {
+                  "name":"target",
+                  "in":"query",
+                  "description":"Specify a language code to filter results by target language.",
+                  "required":false,
+                  "type":"string"
+               },
+               {
+                  "name":"default",
+                  "in":"query",
+                  "description":"If the default parameter isn't specified, the service will return all models (default and non-default) for each language pair. To return only default models, set this to `true`. To return only non-default models, set this to `false`.",
+                  "required":false,
+                  "type":"boolean",
+                  "enum":[
+                     "true",
+                     "false"
+                  ],
+                  "x-alternate-name":"default_models"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Success",
+                  "schema":{
+                     "$ref":"#/definitions/TranslationModels"
+                  },
+                  "examples":{
+                     "application/json":{
+                        "models":[
+                           {
+                              "model_id ":"3e7dfdbe-f757-4150-afee-458e71eb93fb",
+                              "source":"en",
+                              "target":"es",
+                              "base_model_id":"en-es",
+                              "customizable":"false",
+                              "default_model":"false",
+                              "domain":"travel",
+                              "owner":"74a239fa-f2db-42ef-8737-7bf74f49e35f",
+                              "status":"available",
+                              "name":"mymodel"
+                           }
+                        ]
+                     }
+                  }
+               },
+               "500":{
+                  "description":"Internal Server Error",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            },
+            "x-sdk-operations":{
+               "request-examples":{
+                  "curl":[
+                     {
+                        "name":"Example request",
+                        "example":[
+                           {
+                              "type":"code",
+                              "source":[
+                                 "curl -u \"{username}\":\"{password}\" \\\n",
+                                 "\"https://gateway.watsonplatform.net/language-translator/api/v2/models\""
+                              ]
+                           }
+                        ]
+                     }
+                  ],
+                  "java":[
+                     {
+                        "name":"Example request",
+                        "example":[
+                           {
+                              "type":"code",
+                              "source":[
+                                 "LanguageTranslator languageTranslator = new LanguageTranslator();\n",
+                                 "languageTranslator.setUsernameAndPassword(\n",
+                                 "  \"{username}\",\n",
+                                 "  \"{password}\");\n",
+                                 "\n",
+                                 "TranslationModels models = languageTranslator.listModels()\n",
+                                 "  .execute();\n",
+                                 "\n",
+                                 "System.out.println(models);"
+                              ]
+                           }
+                        ]
+                     }
+                  ],
+                  "node":[
+                     {
+                        "name":"Example request",
+                        "example":[
+                           {
+                              "type":"code",
+                              "source":[
+                                 "var LanguageTranslatorV2 = require('watson-developer-cloud/language-translator/v2');\n",
+                                 "var languageTranslator = new LanguageTranslatorV2({\n",
+                                 "  username: '{username}',\n",
+                                 "  password: '{password}'\n",
+                                 "});\n",
+                                 "\n",
+                                 "languageTranslator.listModels(\n",
+                                 "  {},\n",
+                                 "  function(error, response) {\n",
+                                 "    if (error)\n",
+                                 "      console.log(error);\n",
+                                 "    else\n",
+                                 "      console.log(JSON.stringify(response, null, 2));\n",
+                                 "  }\n",
+                                 ");"
+                              ]
+                           }
+                        ]
+                     }
+                  ],
+                  "python":[
+                     {
+                        "name":"Example request",
+                        "example":[
+                           {
+                              "type":"code",
+                              "source":[
+                                 "import json\n",
+                                 "from watson_developer_cloud import LanguageTranslatorV2 as LanguageTranslator\n",
+                                 "\n",
+                                 "language_translator = LanguageTranslator(\n",
+                                 "    username='{username}',\n",
+                                 "    password='{password}')\n",
+                                 "\n",
+                                 "models = language_translator.list_models()\n",
+                                 "print(json.dumps(models, indent=2))"
+                              ]
+                           }
+                        ]
+                     }
+                  ]
+               }
+            }
+         },
+         "post":{
+            "tags":[
+               "Models"
+            ],
+            "operationId":"createModel",
+            "summary":"Create model",
+            "description":"Uploads a TMX glossary file on top of a domain to customize a translation model.\n\nDepending on the size of the file, training can range from minutes for a glossary to several hours for a large parallel corpus. Glossary files must be less than 10 MB. The cumulative file size of all uploaded glossary and corpus files is limited to 250 MB.",
+            "consumes":[
+               "multipart/form-data"
+            ],
+            "produces":[
+               "application/json"
+            ],
+            "parameters":[
+               {
+                  "name":"base_model_id",
+                  "in":"query",
+                  "description":"The model ID of the model to use as the base for customization. To see available models, use the `List models` method.",
+                  "required":true,
+                  "type":"string"
+               },
+               {
+                  "name":"name",
+                  "in":"query",
+                  "description":"An optional model name that you can use to identify the model. Valid characters are letters, numbers, dashes, underscores, spaces and apostrophes. The maximum length is 32 characters.",
+                  "required":false,
+                  "type":"string"
+               },
+               {
+                  "name":"forced_glossary",
+                  "in":"formData",
+                  "description":"A TMX file with your customizations. The customizations in the file completely overwrite the domain translaton data, including high frequency or high confidence phrase translations. You can upload only one glossary with a file size less than 10 MB per call.",
+                  "required":false,
+                  "type":"file",
+                  "x-file-content-types":[
+                     "application/octet-stream"
+                  ]
+               },
+               {
+                  "name":"parallel_corpus",
+                  "in":"formData",
+                  "description":"A TMX file that contains entries that are treated as a parallel corpus instead of a glossary.",
+                  "required":false,
+                  "type":"file",
+                  "x-file-content-types":[
+                     "application/octet-stream"
+                  ]
+               },
+               {
+                  "name":"monolingual_corpus",
+                  "in":"formData",
+                  "description":"A UTF-8 encoded plain text file that is used to customize the target language model.",
+                  "required":false,
+                  "type":"file",
+                  "x-file-content-types":[
+                     "text/plain"
+                  ]
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Success: Training has successfully started",
+                  "schema":{
+                     "$ref":"#/definitions/TranslationModel"
+                  },
+                  "examples":{
+                     "application/json":{
+                        "model_id":"3e7dfdbe-f757-4150-afee-458e71eb93fb",
+                        "source":"en",
+                        "target":"es",
+                        "base_model_id":"en-es",
+                        "domain":"news",
+                        "customizable":false,
+                        "default_model":false,
+                        "owner":"4337aab7-acdf-4e75-bab1-0b7cfc1asda8",
+                        "status":"uploaded",
+                        "name":"custom-english-to-spanish",
+                        "train_log":null
+                     }
+                  }
+               },
+               "400":{
+                  "description":"Bad request: The base_model_id is not specified OR you've hit the maximum limit of customizations for this user",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "404":{
+                  "description":"Not found: The base_model_id value is invalid",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "413":{
+                  "description":"File size exceeded: Payload body exceeded the limit",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Internal Server Error",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            },
+            "x-sdk-operations":{
+               "request-examples":{
+                  "curl":[
+                     {
+                        "name":"Example request",
+                        "example":[
+                           {
+                              "type":"code",
+                              "source":[
+                                 "curl -u \"{username}\":\"{password}\" \\\n",
+                                 "-X POST \\\n",
+                                 "-F base_model_id=\"en-es\" \\\n",
+                                 "-F name=\"custom-english-to-spanish\" \\\n",
+                                 "-F forced_glossary=@glossary.tmx \\\n",
+                                 "\"https://gateway.watsonplatform.net/language-translator/api/v2/models\""
+                              ]
+                           }
+                        ]
+                     }
+                  ],
+                  "java":[
+                     {
+                        "name":"Example request",
+                        "example":[
+                           {
+                              "type":"code",
+                              "source":[
+                                 "LanguageTranslator languageTranslator = new LanguageTranslator();\n",
+                                 "languageTranslator.setUsernameAndPassword(\"{username}\", \"{password}\");\n",
+                                 "\n",
+                                 "File glossary = new File(\"glossary.tmx\");\n",
+                                 "CreateModelOptions options = new CreateModelOptions.Builder()\n",
+                                 "  .baseModelId(\"en-es\")\n",
+                                 "  .name(\"custom-english-to-spanish\")\n",
+                                 "  .forcedGlossary(glossary)\n",
+                                 "  .build();\n",
+                                 "\n",
+                                 "TranslationModel model = languageTranslator.createModel(options)\n",
+                                 "  .execute();\n",
+                                 "\n",
+                                 "System.out.println(model);"
+                              ]
+                           }
+                        ]
+                     }
+                  ],
+                  "node":[
+                     {
+                        "name":"Example request",
+                        "example":[
+                           {
+                              "type":"code",
+                              "source":[
+                                 "var fs = require('fs');\n",
+                                 "var LanguageTranslatorV2 = require('watson-developer-cloud/language-translator/v2');\n",
+                                 "var languageTranslator = new LanguageTranslatorV2({\n",
+                                 "  username: '{username}',\n",
+                                 "  password: '{password}'\n",
+                                 "});\n",
+                                 "\n",
+                                 "var parameters = {\n",
+                                 "  name: 'custom-english-to-spanish',\n",
+                                 "  base_model_id: 'en-es',\n",
+                                 "  forced_glossary: fs.createReadStream('glossary.tmx')\n",
+                                 "};\n",
+                                 "\n",
+                                 "languageTranslator.createModel(\n",
+                                 "  parameters,\n",
+                                 "  function(error, response) {\n",
+                                 "    if (error)\n",
+                                 "      console.log(error);\n",
+                                 "    else\n",
+                                 "      console.log(JSON.stringify(model, null, 2));\n",
+                                 "  }\n",
+                                 ");"
+                              ]
+                           }
+                        ]
+                     }
+                  ],
+                  "python":[
+                     {
+                        "name":"Example request",
+                        "example":[
+                           {
+                              "type":"code",
+                              "source":[
+                                 "import json\n",
+                                 "from watson_developer_cloud import LanguageTranslatorV2 as LanguageTranslator\n",
+                                 "\n",
+                                 "language_translator = LanguageTranslator(\n",
+                                 "  username='{username}',\n",
+                                 "  password='{password}')\n",
+                                 "\n",
+                                 "with open('glossary.tmx', 'rb') as glossary:\n",
+                                 "  response = language_translator.create_model(\n",
+                                 "    base_model_id = 'en-es',\n",
+                                 "    name = 'custom-english-to-spanish',\n",
+                                 "    forced_glossary = glossary)\n",
+                                 "  print(json.dumps(response, indent=2))"
+                              ]
+                           }
+                        ]
+                     }
+                  ]
+               }
+            }
+         }
+      },
+      "/v2/models/{model_id}":{
+         "delete":{
+            "tags":[
+               "Models"
+            ],
+            "operationId":"deleteModel",
+            "summary":"Delete model",
+            "description":"Deletes a custom translation model.",
+            "produces":[
+               "application/json"
+            ],
+            "parameters":[
+               {
+                  "name":"model_id",
+                  "in":"path",
+                  "description":"Model ID of the model to delete.",
+                  "required":true,
+                  "type":"string"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Success: Model deleted",
+                  "schema":{
+                     "$ref":"#/definitions/DeleteModelResult"
+                  },
+                  "examples":{
+                     "application/json":{
+                        "status":"OK"
+                     }
+                  }
+               },
+               "400":{
+                  "description":"Unauthorized: This model was created by IBM",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "404":{
+                  "description":"Not found: The specified model_id was not found",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            },
+            "x-sdk-operations":{
+               "request-examples":{
+                  "curl":[
+                     {
+                        "name":"Example request",
+                        "example":[
+                           {
+                              "type":"code",
+                              "source":[
+                                 "curl -u \"{username}\":\"{password}\" \\\n",
+                                 "-X DELETE\n",
+                                 "\"https://gateway.watsonplatform.net/language-translator/api/v2/models/{model_id}\""
+                              ]
+                           }
+                        ]
+                     }
+                  ],
+                  "java":[
+                     {
+                        "name":"Example request",
+                        "example":[
+                           {
+                              "type":"code",
+                              "source":[
+                                 "LanguageTranslator languageTranslator = new LanguageTranslator();\n",
+                                 "languageTranslator.setUsernameAndPassword(\n",
+                                 "  \"{username}\",\n",
+                                 "  \"{password}\");\n",
+                                 "\n",
+                                 "DeleteModelOptions options = new DeleteModelOptions.Builder()\n",
+                                 "  .modelId(\"123e4567-e89b-12d3-a456-426655440000\")\n",
+                                 "  .build();\n",
+                                 "\n",
+                                 "languageTranslator.deleteModel(options).execute();"
+                              ]
+                           }
+                        ]
+                     }
+                  ],
+                  "node":[
+                     {
+                        "name":"Example request",
+                        "example":[
+                           {
+                              "type":"code",
+                              "source":[
+                                 "var LanguageTranslatorV2 = require('watson-developer-cloud/language-translator/v2');\n",
+                                 "var languageTranslator = new LanguageTranslatorV2({\n",
+                                 "  username: '{username}',\n",
+                                 "  password: '{password}'\n",
+                                 "});\n",
+                                 "\n",
+                                 "var parameters = {\n",
+                                 "  model_id: '123e4567-e89b-12d3-a456-426655440000'\n",
+                                 "}\n",
+                                 "\n",
+                                 "languageTranslator.deleteModel(\n",
+                                 "  parameters,\n",
+                                 "  function(error, response) {\n",
+                                 "    if (error)\n",
+                                 "      console.log(error);\n",
+                                 "    else\n",
+                                 "      console.log(JSON.stringify(response, null, 2));\n",
+                                 "  }\n",
+                                 ");"
+                              ]
+                           }
+                        ]
+                     }
+                  ],
+                  "python":[
+                     {
+                        "name":"Example request",
+                        "example":[
+                           {
+                              "type":"code",
+                              "source":[
+                                 "import json\n",
+                                 "from watson_developer_cloud import LanguageTranslatorV2 as LanguageTranslator\n",
+                                 "\n",
+                                 "language_translator = LanguageTranslator(\n",
+                                 "    username='{username}',\n",
+                                 "    password='{password}')\n",
+                                 "\n",
+                                 "model = language_translator.delete_model('123e4567-e89b-12d3-a456-426655440000')\n",
+                                 "print(json.dumps(model, indent=2))"
+                              ]
+                           }
+                        ]
+                     }
+                  ]
+               }
+            }
+         },
+         "get":{
+            "tags":[
+               "Models"
+            ],
+            "operationId":"getModel",
+            "summary":"Get model details",
+            "description":"Gets information about a translation model, including training status for custom models.",
+            "produces":[
+               "application/json"
+            ],
+            "parameters":[
+               {
+                  "name":"model_id",
+                  "in":"path",
+                  "description":"Model ID of the model to get",
+                  "required":true,
+                  "type":"string"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Status : OK",
+                  "schema":{
+                     "$ref":"#/definitions/TranslationModel"
+                  },
+                  "examples":{
+                     "application/json":{
+                        "model_id ":"3e7dfdbe-f757-4150-afee-458e71eb93fb",
+                        "source":"en",
+                        "target":"es",
+                        "base_model_id":"en-es",
+                        "customizable":"false",
+                        "default_model":"false",
+                        "domain":"travel",
+                        "owner":"74a239fa-f2db-42ef-8737-7bf74f49e35f",
+                        "status":"available",
+                        "name":"mymodel"
+                     }
+                  }
+               },
+               "500":{
+                  "description":"Internal Server Error",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            },
+            "x-sdk-operations":{
+               "request-examples":{
+                  "curl":[
+                     {
+                        "name":"Example request",
+                        "example":[
+                           {
+                              "type":"code",
+                              "source":[
+                                 "curl -u \"{username}\":\"{password}\" \\\n",
+                                 "\"https://gateway.watsonplatform.net/language-translator/api/v2/models/{model_id}\""
+                              ]
+                           }
+                        ]
+                     }
+                  ],
+                  "java":[
+                     {
+                        "name":"Example request",
+                        "example":[
+                           {
+                              "type":"code",
+                              "source":[
+                                 "LanguageTranslator languageTranslator = new LanguageTranslator();\n",
+                                 "languageTranslator.setUsernameAndPassword(\n",
+                                 "  \"{username}\",\n",
+                                 "  \"{password}\");\n",
+                                 "\n",
+                                 "GetModelOptions options = new GetModelOptions.Builder()\n",
+                                 "  .modelId(\"123e4567-e89b-12d3-a456-426655440000\")\n",
+                                 "  .build();\n",
+                                 "\n",
+                                 "TranslationModel model = languageTranslator.getModel(options)\n",
+                                 "  .execute();\n",
+                                 "\n",
+                                 "System.out.println(model);"
+                              ]
+                           }
+                        ]
+                     }
+                  ],
+                  "node":[
+                     {
+                        "name":"Example request",
+                        "example":[
+                           {
+                              "type":"code",
+                              "source":[
+                                 "var LanguageTranslatorV2 = require('watson-developer-cloud/language-translator/v2');\n",
+                                 "var languageTranslator = new LanguageTranslatorV2({\n",
+                                 "  username: '{username}',\n",
+                                 "  password: '{password}'\n",
+                                 "});\n",
+                                 "\n",
+                                 "var parameters = {\n",
+                                 "  model_id: '123e4567-e89b-12d3-a456-426655440000'\n",
+                                 "}\n",
+                                 "\n",
+                                 "languageTranslator.getModel(\n",
+                                 "  parameters,\n",
+                                 "  function(error, response) {\n",
+                                 "    if (error)\n",
+                                 "      console.log(error);\n",
+                                 "    else\n",
+                                 "      console.log(JSON.stringify(response, null, 2));\n",
+                                 "  }\n",
+                                 ");"
+                              ]
+                           }
+                        ]
+                     }
+                  ],
+                  "python":[
+                     {
+                        "name":"Example request",
+                        "example":[
+                           {
+                              "type":"code",
+                              "source":[
+                                 "import json\n",
+                                 "from watson_developer_cloud import LanguageTranslatorV2 as LanguageTranslator\n",
+                                 "\n",
+                                 "language_translator = LanguageTranslator(\n",
+                                 "  username='{username}',\n",
+                                 "  password='{password}')\n",
+                                 "\n",
+                                 "model_details = language_translator.get_model('123e4567-e89b-12d3-a456-426655440000')\n",
+                                 "print(json.dumps(model_details, indent=2))"
+                              ]
+                           }
+                        ]
+                     }
+                  ]
+               }
+            }
+         }
+      },
+      "/v2/translate":{
+         "get":{
+            "tags":[
+               "Translation"
+            ],
+            "operationId":"translateGet",
+            "summary":"Translate (GET)",
+            "description":"Translates the input text from the source language to the target language.",
+            "produces":[
+               "application/json",
+               "text/plain"
+            ],
+            "parameters":[
+               {
+                  "name":"text",
+                  "in":"query",
+                  "description":"Input text in UTF-8 encoding. Multiple `text` entries will result in multiple translations in the response.",
+                  "required":true,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               },
+               {
+                  "name":"model_id",
+                  "in":"query",
+                  "description":"Model ID of the translation model to use. If this is specified, the **source** and **target** parameters will be ignored. The method requires either a model ID or both the **source** and **target** parameters.",
+                  "required":false,
+                  "type":"string"
+               },
+               {
+                  "name":"source",
+                  "in":"query",
+                  "description":"Language code of the source text language. Use with `target` as an alternative way to select a translation model. When `source` and `target` are set, and a model ID is not set, the system chooses a default model for the language pair (usually the model based on the news domain).",
+                  "required":false,
+                  "type":"string"
+               },
+               {
+                  "name":"target",
+                  "in":"query",
+                  "description":"Language code of the translation target language. Use with source as an alternative way to select a translation model.",
+                  "required":false,
+                  "type":"string"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Success",
+                  "schema":{
+                     "$ref":"#/definitions/TranslationResult"
+                  },
+                  "examples":{
+                     "application/json":{
+                        "translations":[
+                           {
+                              "translation":"Hola"
+                           }
+                        ],
+                        "word_count":1,
+                        "character_count":5
+                     }
+                  }
+               },
+               "400":{
+                  "description":"Bad Request: missing required parameter",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "404":{
+                  "description":"Model Not Found: the specified model_id does not exist or specified source - target language pair is not supported",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Internal Server Error",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            },
+            "x-sdk-operations":{
+               "request-examples":{
+                  "curl":[
+                     {
+                        "name":"Example request",
+                        "example":[
+                           {
+                              "type":"code",
+                              "source":[
+                                 "curl -u \"{username}\":\"{password}\" \\\n",
+                                 "-H \"Accept: application/json\" \\\n",
+                                 "\"https://gateway.watsonplatform.net/language-translator/api/v2/translate?model_id=en-es&text=Hello\""
+                              ]
+                           }
+                        ]
+                     }
+                  ]
+               }
+            },
+            "x-sdk-exclude":true
+         },
+         "post":{
+            "tags":[
+               "Translation"
+            ],
+            "operationId":"translate",
+            "summary":"Translate",
+            "description":"Translates the input text from the source language to the target language.",
+            "consumes":[
+               "application/json"
+            ],
+            "produces":[
+               "application/json",
+               "text/plain"
+            ],
+            "x-sdk-produces":[
+               "application/json"
+            ],
+            "parameters":[
+               {
+                  "name":"body",
+                  "in":"body",
+                  "description":"The translate request containing the text, and either a model ID or source and target language pair.",
+                  "required":true,
+                  "schema":{
+                     "$ref":"#/definitions/TranslateRequest"
+                  },
+                  "x-alternate-name":"request"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Success",
+                  "schema":{
+                     "$ref":"#/definitions/TranslationResult"
+                  },
+                  "examples":{
+                     "application/json":{
+                        "translations":[
+                           {
+                              "translation":"Hola"
+                           }
+                        ],
+                        "word_count":1,
+                        "character_count":5
+                     }
+                  }
+               },
+               "400":{
+                  "description":"Bad Request: missing required parameters",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "404":{
+                  "description":"Model Not Found: the specified model_id does not exist or specified source - target language pair is not supported",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Internal Server Error",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            },
+            "x-sdk-operations":{
+               "request-examples":{
+                  "curl":[
+                     {
+                        "name":"Example request",
+                        "example":[
+                           {
+                              "type":"code",
+                              "source":[
+                                 "curl -u \"{username}\":\"{password}\" \\\n",
+                                 "-X POST \\\n",
+                                 "-H \"Accept: application/json\" \\\n",
+                                 "-d '{\"text\":\"Hello\",\"model_id\":\"en-es\"}' \\\n",
+                                 "\"https://gateway.watsonplatform.net/language-translator/api/v2/translate\""
+                              ]
+                           }
+                        ]
+                     }
+                  ],
+                  "java":[
+                     {
+                        "name":"Example request",
+                        "example":[
+                           {
+                              "type":"code",
+                              "source":[
+                                 "LanguageTranslator languageTranslator = new LanguageTranslator();\n",
+                                 "languageTranslator.setUsernameAndPassword(\n",
+                                 "  \"{username}\",\n",
+                                 "  \"{password}\");\n",
+                                 "\n",
+                                 "TranslateOptions translateOptions = new TranslateOptions.Builder()\n",
+                                 "  .addText(\"Hello\")\n",
+                                 "  .modelId(\"en-es\")\n",
+                                 "  .build();\n",
+                                 "\n",
+                                 "TranslationResult result = languageTranslator.translate(translateOptions)\n",
+                                 "  .execute();\n",
+                                 "\n",
+                                 "System.out.println(result);"
+                              ]
+                           }
+                        ]
+                     }
+                  ],
+                  "node":[
+                     {
+                        "name":"Example request",
+                        "example":[
+                           {
+                              "type":"code",
+                              "source":[
+                                 "var LanguageTranslatorV2 = require('watson-developer-cloud/language-translator/v2');\n",
+                                 "var languageTranslator = new LanguageTranslatorV2({\n",
+                                 "  username: '{username}',\n",
+                                 "  password: '{password}'\n",
+                                 "});\n",
+                                 "\n",
+                                 "var parameters = {\n",
+                                 "  text: 'Hello',\n",
+                                 "  model_id: 'en-es'\n",
+                                 "};\n",
+                                 "\n",
+                                 "languageTranslator.translate(\n",
+                                 "  parameters,\n",
+                                 "  function(error, response) {\n",
+                                 "    if (error)\n",
+                                 "      console.log(error)\n",
+                                 "    else\n",
+                                 "      console.log(JSON.stringify(response, null, 2));\n",
+                                 "  }\n",
+                                 ");"
+                              ]
+                           }
+                        ]
+                     }
+                  ],
+                  "python":[
+                     {
+                        "name":"Example request",
+                        "example":[
+                           {
+                              "type":"code",
+                              "source":[
+                                 "import json\n",
+                                 "from watson_developer_cloud import LanguageTranslatorV2 as LanguageTranslator\n",
+                                 "\n",
+                                 "language_translator = LanguageTranslator(\n",
+                                 "    username='{username}',\n",
+                                 "    password='{password}')\n",
+                                 "\n",
+                                 "translation = language_translator.translate(\n",
+                                 "    text='Hello',\n",
+                                 "    model_id='en-es')\n",
+                                 "print(json.dumps(translation, indent=2, ensure_ascii=False))"
+                              ]
+                           }
+                        ]
+                     }
+                  ]
+               }
+            }
+         }
+      },
+      "/v2/identifiable_languages":{
+         "get":{
+            "tags":[
+               "Identification"
+            ],
+            "operationId":"listIdentifiableLanguages",
+            "summary":"List identifiable languages",
+            "description":"Lists the languages that the service can identify. Returns the language code (for example, `en` for English or `es` for Spanish) and name of each language.",
+            "produces":[
+               "application/json"
+            ],
+            "responses":{
+               "200":{
+                  "description":"Success",
+                  "schema":{
+                     "$ref":"#/definitions/IdentifiableLanguages"
+                  },
+                  "examples":{
+                     "application/json":{
+                        "languages":[
+                           {
+                              "language":"af",
+                              "name":"Afrikaans"
+                           },
+                           {
+                              "language":"ar",
+                              "name":"Arabic"
+                           },
+                           {
+                              "language":"az",
+                              "name":"Azerbaijani"
+                           },
+                           {
+                              "language":"ba",
+                              "name":"Bashkir"
+                           }
+                        ]
+                     }
+                  }
+               },
+               "500":{
+                  "description":"Internal Server Error",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            },
+            "x-sdk-operations":{
+               "request-examples":{
+                  "curl":[
+                     {
+                        "name":"Example request",
+                        "example":[
+                           {
+                              "type":"code",
+                              "source":[
+                                 "curl -u \"{username}\":\"{password}\" \\\n",
+                                 "\"https://gateway.watsonplatform.net/language-translator/api/v2/identifiable_languages\""
+                              ]
+                           }
+                        ]
+                     }
+                  ],
+                  "java":[
+                     {
+                        "name":"Example request",
+                        "example":[
+                           {
+                              "type":"code",
+                              "source":[
+                                 "LanguageTranslator languageTranslator = new LanguageTranslator();\n",
+                                 "languageTranslator.setUsernameAndPassword(\n",
+                                 "  \"{username}\",\n",
+                                 "  \"{password}\");\n",
+                                 "\n",
+                                 "IdentifiableLanguages languages = languageTranslator.listIdentifiableLanguages()\n",
+                                 "  .execute();\n",
+                                 "\n",
+                                 "System.out.println(languages);"
+                              ]
+                           }
+                        ]
+                     }
+                  ],
+                  "node":[
+                     {
+                        "name":"Example request",
+                        "example":[
+                           {
+                              "type":"code",
+                              "source":[
+                                 "var LanguageTranslatorV2 = require('watson-developer-cloud/language-translator/v2');\n",
+                                 "var languageTranslator = new LanguageTranslatorV2({\n",
+                                 "  username: '{username}',\n",
+                                 "  password: '{password}'\n",
+                                 "});\n",
+                                 "\n",
+                                 "languageTranslator.getIdentifiableLanguages(\n",
+                                 "  {},\n",
+                                 "  function(err, response) {\n",
+                                 "    if (err)\n",
+                                 "      console.log(err)\n",
+                                 "    else\n",
+                                 "      console.log(JSON.stringify(response, null, 2));\n",
+                                 "  }\n",
+                                 ");"
+                              ]
+                           }
+                        ]
+                     }
+                  ],
+                  "python":[
+                     {
+                        "name":"Example request",
+                        "example":[
+                           {
+                              "type":"code",
+                              "source":[
+                                 "import json\n",
+                                 "from watson_developer_cloud import LanguageTranslatorV2 as LanguageTranslator\n",
+                                 "\n",
+                                 "language_translator = LanguageTranslator(\n",
+                                 "    username='{username}',\n",
+                                 "    password='{password}')\n",
+                                 "\n",
+                                 "languages = language_translator.list_identifiable_languages()\n",
+                                 "print(json.dumps(languages, indent=2))"
+                              ]
+                           }
+                        ]
+                     }
+                  ]
+               }
+            }
+         }
+      },
+      "/v2/identify":{
+         "get":{
+            "tags":[
+               "Identification"
+            ],
+            "operationId":"identifyGet",
+            "summary":"Identify language (GET)",
+            "description":"Identifies the language of the input text.",
+            "produces":[
+               "application/json",
+               "text/plain"
+            ],
+            "parameters":[
+               {
+                  "name":"text",
+                  "in":"query",
+                  "description":"Input text in UTF-8 format.",
+                  "required":true,
+                  "type":"string"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Success",
+                  "schema":{
+                     "$ref":"#/definitions/IdentifiedLanguages"
+                  },
+                  "examples":{
+                     "application/json":{
+                        "languages":[
+                           {
+                              "confidence":0.9143,
+                              "language":"en-US"
+                           },
+                           {
+                              "confidence":0.0396,
+                              "language":"hu-HU"
+                           },
+                           {
+                              "confidence":0.0093,
+                              "language":"ro-RO"
+                           },
+                           {
+                              "confidence":0.005,
+                              "language":"nl-NL"
+                           }
+                        ]
+                     }
+                  }
+               },
+               "400":{
+                  "description":"Bad Request: missing required text parameter",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Internal Server Error",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            },
+            "x-sdk-operations":{
+               "request-examples":{
+                  "curl":[
+                     {
+                        "name":"Example request",
+                        "example":[
+                           {
+                              "type":"code",
+                              "source":[
+                                 "curl -u \"{username}\":\"{password}\" \\\n",
+                                 "-H \"Accept: application/json\" \\\n",
+                                 "\"https://gateway.watsonplatform.net/language-translator/api/v2/identify?text=this+is+a+test\""
+                              ]
+                           }
+                        ]
+                     }
+                  ]
+               }
+            },
+            "x-sdk-exclude":true
+         },
+         "post":{
+            "tags":[
+               "Identification"
+            ],
+            "operationId":"identify",
+            "summary":"Identify language",
+            "description":"Identifies the language of the input text.",
+            "consumes":[
+               "text/plain"
+            ],
+            "produces":[
+               "application/json",
+               "text/plain"
+            ],
+            "x-sdk-produces":[
+               "application/json"
+            ],
+            "parameters":[
+               {
+                  "name":"text",
+                  "in":"body",
+                  "description":"Input text in UTF-8 format.",
+                  "required":true,
+                  "schema":{
+                     "type":"string"
+                  }
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Success",
+                  "schema":{
+                     "$ref":"#/definitions/IdentifiedLanguages"
+                  },
+                  "examples":{
+                     "application/json":{
+                        "languages":[
+                           {
+                              "confidence":0.9143,
+                              "language":"en-US"
+                           },
+                           {
+                              "confidence":0.0396,
+                              "language":"hu-HU"
+                           },
+                           {
+                              "confidence":0.0093,
+                              "language":"ro-RO"
+                           },
+                           {
+                              "confidence":0.005,
+                              "language":"nl-NL"
+                           }
+                        ]
+                     }
+                  }
+               },
+               "400":{
+                  "description":"Bad Request: missing required input text in request body",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Internal Server Error",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            },
+            "x-sdk-operations":{
+               "request-examples":{
+                  "curl":[
+                     {
+                        "name":"Example request",
+                        "example":[
+                           {
+                              "type":"code",
+                              "source":[
+                                 "curl -u \"{username}\":\"{password}\" \\\n",
+                                 "-H \"Content-Type: text/plain\" \\\n",
+                                 "-H \"Accept: application/json\" \\\n",
+                                 "-X POST \\\n",
+                                 "-d \"this is a test\" \\\n",
+                                 "\"https://gateway.watsonplatform.net/language-translator/api/v2/identify\""
+                              ]
+                           }
+                        ]
+                     }
+                  ],
+                  "java":[
+                     {
+                        "name":"Example request",
+                        "example":[
+                           {
+                              "type":"code",
+                              "source":[
+                                 "LanguageTranslator languageTranslator = new LanguageTranslator();\n",
+                                 "languageTranslator.setUsernameAndPassword(\n",
+                                 "  \"{username}\",\n",
+                                 "  \"{password}\");\n",
+                                 "\n",
+                                 "IdentifyOptions options = new IdentifyOptions.Builder()\n",
+                                 "  .text(\"this is a test\")\n",
+                                 "  .build();\n",
+                                 "\n",
+                                 "IdentifiedLanguages languages = languageTranslator.identify(options)\n",
+                                 "  .execute();\n",
+                                 "\n",
+                                 "System.out.println(languages);"
+                              ]
+                           }
+                        ]
+                     }
+                  ],
+                  "node":[
+                     {
+                        "name":"Example request",
+                        "example":[
+                           {
+                              "type":"code",
+                              "source":[
+                                 "var LanguageTranslatorV2 = require('watson-developer-cloud/language-translator/v2');\n",
+                                 "var languageTranslator = new LanguageTranslatorV2({\n",
+                                 "  username: '{username}',\n",
+                                 "  password: '{password}'\n",
+                                 "});\n",
+                                 "\n",
+                                 "var parameters = {\n",
+                                 "  text: 'this is a test'\n",
+                                 "}\n",
+                                 "\n",
+                                 "languageTranslator.identify(\n",
+                                 "  parameters,\n",
+                                 "  function(error, response) {\n",
+                                 "    if (error)\n",
+                                 "      console.log(error)\n",
+                                 "    else\n",
+                                 "      console.log(JSON.stringify(response, null, 2));\n",
+                                 "  }\n",
+                                 ");"
+                              ]
+                           }
+                        ]
+                     }
+                  ],
+                  "python":[
+                     {
+                        "name":"Example request",
+                        "example":[
+                           {
+                              "type":"code",
+                              "source":[
+                                 "import json\n",
+                                 "from watson_developer_cloud import LanguageTranslatorV2 as LanguageTranslator\n",
+                                 "\n",
+                                 "language_translator = LanguageTranslator(\n",
+                                 "    username='{username}',\n",
+                                 "    password='{password}')\n",
+                                 "\n",
+                                 "language = language_translator.identify('this is a test')\n",
+                                 "print(json.dumps(language, indent=2))"
+                              ]
+                           }
+                        ]
+                     }
+                  ]
+               }
+            }
+         }
+      }
+   },
+   "definitions":{
+      "TranslationModels":{
+         "description":"The response type for listing existing translation models.",
+         "properties":{
+            "models":{
+               "description":"An array of available models.",
+               "type":"array",
+               "items":{
+                  "$ref":"#/definitions/TranslationModel"
+               }
+            }
+         },
+         "required":[
+            "models"
+         ]
+      },
+      "TranslationModel":{
+         "description":"Response payload for models.",
+         "required":[
+            "model_id"
+         ],
+         "properties":{
+            "model_id":{
+               "description":"A globally unique string that identifies the underlying model that is used for translation",
+               "type":"string"
+            },
+            "name":{
+               "description":"Optional name that can be specified when the model is created.",
+               "type":"string"
+            },
+            "source":{
+               "description":"Translation source language code",
+               "type":"string"
+            },
+            "target":{
+               "description":"Translation target language code",
+               "type":"string"
+            },
+            "base_model_id":{
+               "description":"Model ID of the base model that was used to customize the model. If the model is not a custom model, this will be an empty string.",
+               "type":"string"
+            },
+            "domain":{
+               "description":"The domain of the translation model.",
+               "type":"string"
+            },
+            "customizable":{
+               "description":"Whether this model can be used as a base for customization. Customized models are not further customizable, and some base models are not customizable.",
+               "type":"boolean"
+            },
+            "default_model":{
+               "description":"Whether or not the model is a default model. A default model is the model for a given language pair that will be used when that language pair is specified in the source and target parameters.",
+               "type":"boolean"
+            },
+            "owner":{
+               "description":"Either an empty string, indicating the model is not a custom model, or the ID of the service instance that created the model.",
+               "type":"string"
+            },
+            "status":{
+               "description":"Availability of a model.",
+               "type":"string",
+               "enum":[
+                  "uploading",
+                  "uploaded",
+                  "dispatching",
+                  "queued",
+                  "training",
+                  "trained",
+                  "publishing",
+                  "available",
+                  "deleted",
+                  "error"
+               ]
+            }
+         }
+      },
+      "DeleteModelResult":{
+         "required":[
+            "status"
+         ],
+         "properties":{
+            "status":{
+               "description":"\"OK\" indicates that the model was successfully deleted.",
+               "type":"string"
+            }
+         }
+      },
+      "TranslateRequest":{
+         "required":[
+            "text"
+         ],
+         "properties":{
+            "text":{
+               "description":"Input text in UTF-8 encoding. Multiple entries will result in multiple translations in the response.",
+               "type":"array",
+               "items":{
+                  "type":"string"
+               }
+            },
+            "model_id":{
+               "description":"Model ID of the translation model to use. If this is specified, the **source** and **target** parameters will be ignored. The method requires either a model ID or both the **source** and **target** parameters.",
+               "type":"string"
+            },
+            "source":{
+               "description":"Language code of the source text language. Use with `target` as an alternative way to select a translation model. When `source` and `target` are set, and a model ID is not set, the system chooses a default model for the language pair (usually the model based on the news domain).",
+               "type":"string"
+            },
+            "target":{
+               "description":"Language code of the translation target language. Use with source as an alternative way to select a translation model.",
+               "type":"string"
+            }
+         }
+      },
+      "TranslationResult":{
+         "required":[
+            "word_count",
+            "character_count",
+            "translations"
+         ],
+         "properties":{
+            "word_count":{
+               "description":"Number of words in the input text.",
+               "type":"integer"
+            },
+            "character_count":{
+               "description":"Number of characters in the input text.",
+               "type":"integer"
+            },
+            "translations":{
+               "description":"List of translation output in UTF-8, corresponding to the input text entries.",
+               "type":"array",
+               "items":{
+                  "$ref":"#/definitions/Translation"
+               }
+            }
+         }
+      },
+      "Translation":{
+         "required":[
+            "translation"
+         ],
+         "properties":{
+            "translation":{
+               "description":"Translation output in UTF-8.",
+               "type":"string",
+               "x-alternate-name":"translation_output",
+               "x-java-alternate-name":"translation"
+            }
+         }
+      },
+      "IdentifiableLanguages":{
+         "required":[
+            "languages"
+         ],
+         "properties":{
+            "languages":{
+               "description":"A list of all languages that the service can identify.",
+               "type":"array",
+               "items":{
+                  "$ref":"#/definitions/IdentifiableLanguage"
+               }
+            }
+         }
+      },
+      "IdentifiableLanguage":{
+         "required":[
+            "language",
+            "name"
+         ],
+         "properties":{
+            "language":{
+               "description":"The language code for an identifiable language.",
+               "type":"string"
+            },
+            "name":{
+               "description":"The name of the identifiable language.",
+               "type":"string"
+            }
+         }
+      },
+      "IdentifiedLanguages":{
+         "required":[
+            "languages"
+         ],
+         "properties":{
+            "languages":{
+               "description":"A ranking of identified languages with confidence scores.",
+               "type":"array",
+               "items":{
+                  "$ref":"#/definitions/IdentifiedLanguage"
+               }
+            }
+         }
+      },
+      "IdentifiedLanguage":{
+         "required":[
+            "language",
+            "confidence"
+         ],
+         "properties":{
+            "language":{
+               "description":"The language code for an identified language.",
+               "type":"string"
+            },
+            "confidence":{
+               "description":"The confidence score for the identified language.",
+               "type":"number",
+               "format":"double",
+               "minimum":0,
+               "maximum":1
+            }
+         }
+      },
+      "ErrorResponse":{
+         "required":[
+            "error_code",
+            "error_message"
+         ],
+         "properties":{
+            "error_code":{
+               "description":"A short identifier for the error.",
+               "type":"string"
+            },
+            "error_message":{
+               "description":"A more detailed description of the error.",
+               "type":"string"
+            }
+         }
+      }
+   }
+}

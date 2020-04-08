@@ -1,0 +1,14 @@
+{
+  "name": "oas-to-graphql",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "apollo-server": "^2.12.0",
+    "graphql": "^15.0.0",
+    "openapi-to-graphql": "^2.0.0"
+  }
+}
